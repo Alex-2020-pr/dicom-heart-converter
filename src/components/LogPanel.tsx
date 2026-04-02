@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Terminal, Trash2, Info, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+// motion/AnimatePresence removed to avoid React DOM bug
 
 const typeIcon: Record<LogEntry["type"], React.ReactNode> = {
   info: <Info className="h-3.5 w-3.5 text-accent" />,
@@ -51,21 +51,17 @@ export default function LogPanel() {
           </div>
         ) : (
           <div className="divide-y divide-border/50">
-            <AnimatePresence initial={false}>
               {logs.map((log) => (
-                <motion.div
+                <div
                   key={log.id}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
                   className={`flex items-start gap-2.5 px-5 py-2 text-xs ${typeBg[log.type]}`}
                 >
                   <span className="mt-0.5 shrink-0">{typeIcon[log.type]}</span>
                   <span className="text-muted-foreground font-mono shrink-0">{formatTime(log.timestamp)}</span>
                   <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0 font-mono">{log.source}</Badge>
                   <span className="text-foreground/80 break-all">{log.message}</span>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
           </div>
         )}
       </ScrollArea>
