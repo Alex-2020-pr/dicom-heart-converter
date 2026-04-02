@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Wifi, WifiOff, Loader2, Server } from "lucide-react";
 import { PacsConfig, testConnection } from "@/lib/api";
+import { mockTestConnection } from "@/lib/mockApi";
+import { useLogStore } from "@/lib/logStore";
 import { motion } from "framer-motion";
 
 interface ConfigPanelProps {
@@ -13,22 +15,29 @@ interface ConfigPanelProps {
   icon: React.ReactNode;
   config: PacsConfig;
   onChange: (config: PacsConfig) => void;
+  demoMode: boolean;
 }
 
-export default function ConfigPanel({ title, icon, config, onChange }: ConfigPanelProps) {
+export default function ConfigPanel({ title, icon, config, onChange, demoMode }: ConfigPanelProps) {
   const [status, setStatus] = useState<"idle" | "testing" | "success" | "error">("idle");
   const [statusMsg, setStatusMsg] = useState("");
+  const addLog = useLogStore((s) => s.addLog);
 
   const handleTest = async () => {
     setStatus("testing");
     setStatusMsg("Testando conexão...");
+    addLog("info", title, `Iniciando teste de comunicação com ${config.aeTitle}@${config.ip}:${config.port}`);
     try {
-      const result = await testConnection(config);
+      const result = demoMode
+        ? await mockTestConnection(config)
+        : await testConnection(config);
       setStatus(result.success ? "success" : "error");
       setStatusMsg(result.message);
     } catch {
       setStatus("error");
-      setStatusMsg("Erro de conexão com o backend. Verifique se o servidor está rodando.");
+      const msg = "Erro de conexão com o backend. Verifique se o servidor está rodando.";
+      setStatusMsg(msg);
+      addLog("error", title, msg);
     }
   };
 
@@ -53,28 +62,15 @@ export default function ConfigPanel({ title, icon, config, onChange }: ConfigPan
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="space-y-1.5">
             <Label className="text-muted-foreground text-xs uppercase tracking-wide">AE Title</Label>
-            <Input
-              value={config.aeTitle}
-              onChange={(e) => onChange({ ...config, aeTitle: e.target.value })}
-              className="font-mono text-sm"
-            />
+            <Input value={config.aeTitle} onChange={(e) => onChange({ ...config, aeTitle: e.target.value })} className="font-mono text-sm" />
           </div>
           <div className="space-y-1.5">
             <Label className="text-muted-foreground text-xs uppercase tracking-wide">IP</Label>
-            <Input
-              value={config.ip}
-              onChange={(e) => onChange({ ...config, ip: e.target.value })}
-              className="font-mono text-sm"
-            />
+            <Input value={config.ip} onChange={(e) => onChange({ ...config, ip: e.target.value })} className="font-mono text-sm" />
           </div>
           <div className="space-y-1.5">
             <Label className="text-muted-foreground text-xs uppercase tracking-wide">Porta</Label>
-            <Input
-              type="number"
-              value={config.port}
-              onChange={(e) => onChange({ ...config, port: Number(e.target.value) })}
-              className="font-mono text-sm"
-            />
+            <Input type="number" value={config.port} onChange={(e) => onChange({ ...config, port: Number(e.target.value) })} className="font-mono text-sm" />
           </div>
         </div>
 
@@ -83,7 +79,7 @@ export default function ConfigPanel({ title, icon, config, onChange }: ConfigPan
             {status === "testing" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Server className="h-4 w-4" />}
             Testar Comunicação
           </Button>
-          {statusMsg && <span className="text-xs text-muted-foreground">{statusMsg}</span>}
+          {statusMsg && <span className="text-xs text-muted-foreground max-w-[50%] truncate">{statusMsg}</span>}
         </div>
       </Card>
     </motion.div>
