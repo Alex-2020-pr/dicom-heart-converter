@@ -138,7 +138,7 @@ export default function ConvertPanel({ patient, sendConfig, demoMode }: ConvertP
             <Download className="h-4 w-4" />
             Baixar arquivo DICOM ({dicomFilename})
           </a>
-        </motion.div>
+        </div>
       )}
     </Card>
   );

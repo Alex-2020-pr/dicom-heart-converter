@@ -104,9 +104,8 @@ export default function WorklistPanel({ config, selectedPatient, onSelectPatient
                 ))}
               </TableBody>
             </Table>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </Card>
   );
 }
