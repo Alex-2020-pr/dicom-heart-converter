@@ -7,7 +7,7 @@ import { Search, Loader2, UserCheck, RefreshCw } from "lucide-react";
 import { PacsConfig, WorklistPatient, queryWorklist } from "@/lib/api";
 import { mockQueryWorklist } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion, AnimatePresence } from "framer-motion";
+// motion/AnimatePresence removed to avoid React DOM bug
 
 interface WorklistPanelProps {
   config: PacsConfig;
