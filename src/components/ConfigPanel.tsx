@@ -8,7 +8,7 @@ import { Wifi, WifiOff, Loader2, Server } from "lucide-react";
 import { PacsConfig, testConnection } from "@/lib/api";
 import { mockTestConnection } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion } from "framer-motion";
+// motion removed to avoid React DOM insertion bug
 
 interface ConfigPanelProps {
   title: string;
@@ -49,7 +49,7 @@ export default function ConfigPanel({ title, icon, config, onChange, demoMode }:
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+    <div>
       <Card className="p-6 shadow-card hover:shadow-elevated transition-shadow">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
@@ -82,6 +82,6 @@ export default function ConfigPanel({ title, icon, config, onChange, demoMode }:
           {statusMsg && <span className="text-xs text-muted-foreground max-w-[50%] truncate">{statusMsg}</span>}
         </div>
       </Card>
-    </motion.div>
+    </div>
   );
 }

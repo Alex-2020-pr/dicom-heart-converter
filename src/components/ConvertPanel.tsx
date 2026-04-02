@@ -5,7 +5,7 @@ import { Upload, FileImage, Download, Send, Loader2, CheckCircle2, XCircle } fro
 import { PacsConfig, WorklistPatient, convertAndSend, getDownloadUrl } from "@/lib/api";
 import { mockConvertAndSend } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion } from "framer-motion";
+// motion removed to avoid React DOM bug
 
 interface ConvertPanelProps {
   patient: WorklistPatient | null;
@@ -124,21 +124,21 @@ export default function ConvertPanel({ patient, sendConfig, demoMode }: ConvertP
       </div>
 
       {status !== "idle" && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 p-3 rounded-lg bg-muted/50">
+        <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/50">
           {status === "converting" && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
           {status === "success" && <CheckCircle2 className="h-4 w-4 text-success" />}
           {status === "error" && <XCircle className="h-4 w-4 text-destructive" />}
           <span className="text-sm">{resultMsg}</span>
-        </motion.div>
+        </div>
       )}
 
       {dicomFilename && status === "success" && !demoMode && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
+        <div className="mt-3">
           <a href={getDownloadUrl(dicomFilename)} download className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
             <Download className="h-4 w-4" />
             Baixar arquivo DICOM ({dicomFilename})
           </a>
-        </motion.div>
+        </div>
       )}
     </Card>
   );

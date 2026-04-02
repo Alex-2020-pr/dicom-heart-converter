@@ -7,7 +7,7 @@ import { Search, Loader2, UserCheck, RefreshCw } from "lucide-react";
 import { PacsConfig, WorklistPatient, queryWorklist } from "@/lib/api";
 import { mockQueryWorklist } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion, AnimatePresence } from "framer-motion";
+// motion/AnimatePresence removed to avoid React DOM bug
 
 interface WorklistPanelProps {
   config: PacsConfig;
@@ -65,9 +65,8 @@ export default function WorklistPanel({ config, selectedPatient, onSelectPatient
         Consultar Worklist
       </Button>
 
-      <AnimatePresence>
-        {patients.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-lg border overflow-hidden">
+      {patients.length > 0 && (
+          <div className="rounded-lg border overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/50">
@@ -105,9 +104,8 @@ export default function WorklistPanel({ config, selectedPatient, onSelectPatient
                 ))}
               </TableBody>
             </Table>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
     </Card>
   );
 }
