@@ -65,9 +65,8 @@ export default function WorklistPanel({ config, selectedPatient, onSelectPatient
         Consultar Worklist
       </Button>
 
-      <AnimatePresence>
-        {patients.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-lg border overflow-hidden">
+      {patients.length > 0 && (
+          <div className="rounded-lg border overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/50">
