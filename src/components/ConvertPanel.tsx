@@ -133,7 +133,7 @@ export default function ConvertPanel({ patient, sendConfig, demoMode }: ConvertP
       )}
 
       {dicomFilename && status === "success" && !demoMode && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
+        <div className="mt-3">
           <a href={getDownloadUrl(dicomFilename)} download className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
             <Download className="h-4 w-4" />
             Baixar arquivo DICOM ({dicomFilename})
