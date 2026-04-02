@@ -49,7 +49,7 @@ export default function ConfigPanel({ title, icon, config, onChange, demoMode }:
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+    <div>
       <Card className="p-6 shadow-card hover:shadow-elevated transition-shadow">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
