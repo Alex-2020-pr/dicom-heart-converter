@@ -124,7 +124,7 @@ export default function ConvertPanel({ patient, sendConfig, demoMode }: ConvertP
       </div>
 
       {status !== "idle" && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 p-3 rounded-lg bg-muted/50">
+        <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/50">
           {status === "converting" && <Loader2 className="h-4 w-4 animate-spin text-primary" />}
           {status === "success" && <CheckCircle2 className="h-4 w-4 text-success" />}
           {status === "error" && <XCircle className="h-4 w-4 text-destructive" />}
