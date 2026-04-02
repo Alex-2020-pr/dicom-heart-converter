@@ -80,6 +80,10 @@ export async function convertAndSend(
     method: "POST",
     body: formData,
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   return res.json();
 }
 
