@@ -82,6 +82,6 @@ export default function ConfigPanel({ title, icon, config, onChange, demoMode }:
           {statusMsg && <span className="text-xs text-muted-foreground max-w-[50%] truncate">{statusMsg}</span>}
         </div>
       </Card>
-    </motion.div>
+    </div>
   );
 }
