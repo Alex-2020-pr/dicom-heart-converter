@@ -49,6 +49,10 @@ export async function queryWorklist(config: PacsConfig): Promise<WorklistPatient
       port: config.port,
     }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   const data = await res.json();
   return data.patients || [];
 }
