@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Terminal, Trash2, Info, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+// motion/AnimatePresence removed to avoid React DOM bug
 
 const typeIcon: Record<LogEntry["type"], React.ReactNode> = {
   info: <Info className="h-3.5 w-3.5 text-accent" />,
