@@ -129,7 +129,7 @@ export default function ConvertPanel({ patient, sendConfig, demoMode }: ConvertP
           {status === "success" && <CheckCircle2 className="h-4 w-4 text-success" />}
           {status === "error" && <XCircle className="h-4 w-4 text-destructive" />}
           <span className="text-sm">{resultMsg}</span>
-        </motion.div>
+        </div>
       )}
 
       {dicomFilename && status === "success" && !demoMode && (
