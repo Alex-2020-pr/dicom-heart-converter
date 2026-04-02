@@ -32,6 +32,10 @@ export async function testConnection(config: PacsConfig): Promise<{ success: boo
       port: config.port,
     }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   return res.json();
 }
 
