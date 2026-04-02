@@ -5,7 +5,7 @@ import { Upload, FileImage, Download, Send, Loader2, CheckCircle2, XCircle } fro
 import { PacsConfig, WorklistPatient, convertAndSend, getDownloadUrl } from "@/lib/api";
 import { mockConvertAndSend } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion } from "framer-motion";
+// motion removed to avoid React DOM bug
 
 interface ConvertPanelProps {
   patient: WorklistPatient | null;
