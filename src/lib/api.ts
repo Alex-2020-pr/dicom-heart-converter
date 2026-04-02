@@ -32,6 +32,10 @@ export async function testConnection(config: PacsConfig): Promise<{ success: boo
       port: config.port,
     }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   return res.json();
 }
 
@@ -45,6 +49,10 @@ export async function queryWorklist(config: PacsConfig): Promise<WorklistPatient
       port: config.port,
     }),
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   const data = await res.json();
   return data.patients || [];
 }
@@ -72,6 +80,10 @@ export async function convertAndSend(
     method: "POST",
     body: formData,
   });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Erro ${res.status}: ${text}`);
+  }
   return res.json();
 }
 
