@@ -5,30 +5,38 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, Loader2, UserCheck, RefreshCw } from "lucide-react";
 import { PacsConfig, WorklistPatient, queryWorklist } from "@/lib/api";
+import { mockQueryWorklist } from "@/lib/mockApi";
+import { useLogStore } from "@/lib/logStore";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface WorklistPanelProps {
   config: PacsConfig;
   selectedPatient: WorklistPatient | null;
   onSelectPatient: (p: WorklistPatient) => void;
+  demoMode: boolean;
 }
 
-export default function WorklistPanel({ config, selectedPatient, onSelectPatient }: WorklistPanelProps) {
+export default function WorklistPanel({ config, selectedPatient, onSelectPatient, demoMode }: WorklistPanelProps) {
   const [patients, setPatients] = useState<WorklistPatient[]>([]);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [statusMsg, setStatusMsg] = useState("");
+  const addLog = useLogStore((s) => s.addLog);
 
   const handleQuery = async () => {
     setStatus("loading");
     setStatusMsg(`Consultando ${config.aeTitle}@${config.ip}:${config.port}...`);
     try {
-      const result = await queryWorklist(config);
+      const result = demoMode
+        ? await mockQueryWorklist(config)
+        : await queryWorklist(config);
       setPatients(result);
       setStatus("success");
       setStatusMsg(`${result.length} paciente(s) encontrado(s)`);
     } catch {
       setStatus("error");
-      setStatusMsg("Erro ao consultar worklist. Verifique o backend.");
+      const msg = "Erro ao consultar worklist. Verifique o backend.";
+      setStatusMsg(msg);
+      addLog("error", "C-FIND", msg);
     }
   };
 
@@ -78,7 +86,10 @@ export default function WorklistPanel({ config, selectedPatient, onSelectPatient
                     className={`cursor-pointer transition-colors ${
                       selectedPatient?.patientId === p.patientId ? "bg-primary/5" : "hover:bg-muted/30"
                     }`}
-                    onClick={() => onSelectPatient(p)}
+                    onClick={() => {
+                      onSelectPatient(p);
+                      addLog("info", "WORKLIST", `Paciente selecionado: ${p.patientName} (${p.patientId})`);
+                    }}
                   >
                     <TableCell className="font-medium">{p.patientName}</TableCell>
                     <TableCell className="font-mono text-xs">{p.patientId}</TableCell>
