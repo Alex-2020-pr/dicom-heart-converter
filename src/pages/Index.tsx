@@ -8,7 +8,7 @@ import { Server, Send, Zap, Monitor, Cpu } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+// motion removed to avoid DOM insertion/runtime issues
 
 const Index = () => {
   const [worklistConfig, setWorklistConfig] = useState<PacsConfig>({
