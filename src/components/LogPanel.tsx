@@ -51,21 +51,17 @@ export default function LogPanel() {
           </div>
         ) : (
           <div className="divide-y divide-border/50">
-            <AnimatePresence initial={false}>
               {logs.map((log) => (
-                <motion.div
+                <div
                   key={log.id}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
                   className={`flex items-start gap-2.5 px-5 py-2 text-xs ${typeBg[log.type]}`}
                 >
                   <span className="mt-0.5 shrink-0">{typeIcon[log.type]}</span>
                   <span className="text-muted-foreground font-mono shrink-0">{formatTime(log.timestamp)}</span>
                   <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0 font-mono">{log.source}</Badge>
                   <span className="text-foreground/80 break-all">{log.message}</span>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
           </div>
         )}
       </ScrollArea>
