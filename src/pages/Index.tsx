@@ -32,7 +32,7 @@ const Index = () => {
       <header className="gradient-hero border-b">
         <div className="container max-w-6xl py-5">
           <div className="flex items-center justify-between">
-            <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3">
+            <div className="flex items-center gap-3 animate-fade-in">
               <div className="p-2.5 rounded-xl bg-primary/20 backdrop-blur">
                 <Zap className="h-6 w-6 text-primary-foreground" />
               </div>
@@ -40,10 +40,9 @@ const Index = () => {
                 <h1 className="text-xl font-bold text-primary-foreground tracking-tight">DICOM Converter</h1>
                 <p className="text-sm text-primary-foreground/60">Converta imagens para DICOM e envie para PACS</p>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Demo mode toggle */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 bg-primary-foreground/10 backdrop-blur rounded-lg px-4 py-2">
+            <div className="flex items-center gap-3 bg-primary-foreground/10 backdrop-blur rounded-lg px-4 py-2 animate-fade-in">
               <div className="flex items-center gap-2">
                 {demoMode ? <Monitor className="h-4 w-4 text-primary-foreground/80" /> : <Cpu className="h-4 w-4 text-primary-foreground/80" />}
                 <Label className="text-primary-foreground/90 text-sm cursor-pointer">
@@ -52,20 +51,19 @@ const Index = () => {
               </div>
               <Switch checked={demoMode} onCheckedChange={setDemoMode} />
               {demoMode && <Badge className="bg-warning text-warning-foreground text-[10px]">DEMO</Badge>}
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
 
       <main className="container max-w-6xl py-8 space-y-6">
-        {/* Demo notice */}
         {demoMode && (
-          <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 p-3 rounded-lg bg-warning/10 border border-warning/20 text-sm">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-warning/10 border border-warning/20 text-sm animate-fade-in">
             <Monitor className="h-4 w-4 text-warning shrink-0" />
             <span className="text-foreground/80">
               <strong>Modo Demo ativo</strong> — dados simulados, sem conexão real com PACS. Desative para usar com o backend Python.
             </span>
-          </motion.div>
+          </div>
         )}
 
         {/* Config Section */}
