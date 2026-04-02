@@ -8,7 +8,7 @@ import { Wifi, WifiOff, Loader2, Server } from "lucide-react";
 import { PacsConfig, testConnection } from "@/lib/api";
 import { mockTestConnection } from "@/lib/mockApi";
 import { useLogStore } from "@/lib/logStore";
-import { motion } from "framer-motion";
+// motion removed to avoid React DOM insertion bug
 
 interface ConfigPanelProps {
   title: string;
